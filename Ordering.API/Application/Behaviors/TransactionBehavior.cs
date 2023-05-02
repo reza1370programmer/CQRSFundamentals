@@ -36,7 +36,7 @@ namespace Ordering.API.Application.Behaviours
                     {
                         Guid transactionId;
                         using (var transaction = await
-                        _dbContext.BeginTransactionAsync())
+                        _dbContext.            ())
                         {
                             response = await next();
                             _logger.LogInformation("----- Commit transaction { TransactionId} for { CommandName}", transaction.TransactionId, typeName);
