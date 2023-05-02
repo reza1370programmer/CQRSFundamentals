@@ -8,6 +8,8 @@ using FluentValidation.AspNetCore;
 using FluentValidation;
 using Ordering.API.Infrastructure;
 using Ordering.API.Application.Models;
+using MediatR;
+using Ordering.API.Application.Behaviours;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +25,8 @@ builder.Services.AddDbContext<OrderingContext>(options =>
 });
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<IBuyerRepository, BuyerRepository>();
+builder.Services.AddScoped(typeof(IPipelineBehavior<,>),typeof(TransactionBehavior<,>));
+
 builder.Services.AddTransient<OrderingContextSeed>();
 var connectionString = new
 ConnectionString(builder.Configuration["ConnectionString"]);
